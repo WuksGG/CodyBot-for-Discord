@@ -3,6 +3,7 @@ const { Routes } = require('discord-api-types/v9');
 const { Client, Intents } = require('discord.js');
 // eslint-disable-next-line import/no-unresolved
 const { discord: { clientId, guildId } } = require('#config');
+const { database } = require('#models');
 
 const client = new Client({
   intents: [
@@ -55,7 +56,6 @@ const rest = new REST({ version: '9' })
 })();
 
 // Listeners
-
 client.once('ready', () => {
   process.stdout.write(`Logged in as ${client.user.tag}!\n`);
 });
@@ -64,4 +64,5 @@ client.login(process.env.DISCORD_TOKEN);
 
 module.exports = {
   client,
+  database,
 };
