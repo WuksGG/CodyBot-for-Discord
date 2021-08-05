@@ -1,7 +1,8 @@
+/* eslint-disable import/no-unresolved */
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { Client, Intents } = require('discord.js');
-// eslint-disable-next-line import/no-unresolved
+
 const { discord: { clientId, guildId } } = require('#config');
 const { database } = require('#models');
 

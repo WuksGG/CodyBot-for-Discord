@@ -6,13 +6,13 @@ const { getCalendarData, discord: { client } } = require('#helpers');
 const { database: { db } } = require('#models');
 
 db.any('SELECT * FROM events')
-  .then(r => console.log(r));
+  .then((r) => process.stdout.write(`${r}\n`));
 
 // getCalendarData();
 
 const eventFiles = fs.readdirSync('./events').filter((file) => file.endsWith('.js'));
 eventFiles.forEach((file) => {
-  // eslint-disable-next-line import/no-dynamic-require
+  // eslint-disable-next-line import/no-dynamic-require, global-require
   const event = require(`./events/${file}`);
   if (event.once) {
     client.once(event.name, (...args) => event.execute(...args));

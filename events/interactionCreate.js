@@ -6,7 +6,8 @@ module.exports = {
       try {
         await interaction.reply('Pong!');
       } catch (e) {
-        console.log(e);
+        process.stdout.write(e.stack);
+        process.stdout.write('\n');
       }
     } else if (interaction.commandName === 'zooms') {
       // Links Zooms + Descriptions
@@ -14,7 +15,8 @@ module.exports = {
       try {
         await interaction.reply('RAWR');
       } catch (e) {
-        console.log(e);
+        process.stdout.write(e.stack);
+        process.stdout.write('\n');
       }
     }
   },

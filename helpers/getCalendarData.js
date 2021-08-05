@@ -1,5 +1,6 @@
 const axios = require('axios');
 
+// eslint-disable-next-line import/no-unresolved
 const { calendar } = require('#config');
 
 const gapi = async () => {
@@ -24,7 +25,8 @@ const gapi = async () => {
 const init = async () => {
   const [err, data] = await gapi();
   if (err) {
-    console.log(err);
+    process.stdout.write(err.stack);
+    process.stdout.write('\n');
     return err;
   }
   data.data.items.forEach((item) => {
@@ -43,10 +45,13 @@ const init = async () => {
         start,
         end,
       };
-      console.log(dPk);
+      process.stdout.write(dPk);
+      process.stdout.write('\n');
     }
   });
+  return data;
 };
 
+// init();
 // Compare and add/remove
 module.exports = init;
