@@ -55,11 +55,6 @@ const rest = new REST({ version: '9' })
   }
 })();
 
-// Listeners
-client.once('ready', () => {
-  process.stdout.write(`Logged in as ${client.user.tag}!\n`);
-});
-
 client.login(process.env.DISCORD_TOKEN);
 
 module.exports = {
