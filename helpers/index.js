@@ -1,7 +1,5 @@
-const discord = require('./discord');
-const getCalendarData = require('./getCalendarData');
+const calendarData = require('./calendarData');
 
 module.exports = {
-  discord,
-  getCalendarData,
+  calendarData,
 };

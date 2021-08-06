@@ -1,14 +1,26 @@
 /* eslint-disable import/no-unresolved */
-require('dotenv').config({ path: './configuration/.env' });
 const fs = require('fs');
+require('dotenv').config({ path: './configuration/.env' });
 
-const { getCalendarData, discord: { client } } = require('#helpers');
-const { database: { db } } = require('#models');
+const { discord: { client } } = require('#models');
+const { calendarData } = require('#helpers');
 
-db.any('SELECT * FROM events')
-  .then((r) => process.stdout.write(`${r}\n`));
+const cron = require('node-cron');
+cron.schedule('*/1 * * * *', async () => {
+  const events = await calendarData.getFromDatabase();
+  // then post
+  // then update
+  console.log(events);
+});
 
-// getCalendarData();
+(async () => {
+  // if db is empty
+  // getCalendarData.populateDatabase();
+
+  // if testing db stuff
+  // const events = await getCalendarData.getFromDatabase();
+  // console.log(events);
+})();
 
 const eventFiles = fs.readdirSync('./events').filter((file) => file.endsWith('.js'));
 eventFiles.forEach((file) => {

@@ -4,7 +4,21 @@ const { Routes } = require('discord-api-types/v9');
 const { Client, Intents } = require('discord.js');
 
 const { discord: { clientId, guildId } } = require('#config');
-const { database } = require('#models');
+
+// Slash Commands Init
+const commands = [
+  {
+    name: 'ping',
+    description: 'Replies with Pong!',
+  },
+  {
+    name: 'zoom',
+    description: 'Lists all of the Zoom rooms',
+  },
+];
+
+const rest = new REST({ version: '9' })
+  .setToken(process.env.DISCORD_TOKEN);
 
 const client = new Client({
   intents: [
@@ -26,22 +40,6 @@ const client = new Client({
   ],
 });
 
-// Slash Commands Init
-
-const commands = [
-  {
-    name: 'ping',
-    description: 'Replies with Pong!',
-  },
-  {
-    name: 'test',
-    description: 'testtest',
-  },
-];
-
-const rest = new REST({ version: '9' })
-  .setToken(process.env.DISCORD_TOKEN);
-
 (async () => {
   try {
     process.stdout.write('Started refreshing application (/) commands.\n');
@@ -60,5 +58,4 @@ client.login(process.env.DISCORD_TOKEN);
 
 module.exports = {
   client,
-  database,
 };
