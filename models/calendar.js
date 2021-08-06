@@ -57,7 +57,7 @@ const scheduleTask = (event) => {
 
 const init = async () => {
   // Schedule the jobs at 6am daily
-  cron.schedule('* 6 * * *', async () => {
+  cron.schedule('0 6 * * *', async () => {
     const [err, events] = await calendarData.getFromDatabase();
     if (err) return;
     events.forEach((event) => scheduleTask(event));
