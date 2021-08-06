@@ -36,6 +36,7 @@ const eventEmbedGenerator = ({
 };
 
 const scheduleTask = (event) => {
+  if (event.summary === 'Pre-Party') return;
   const startDate = new Date(event.start);
   const adjustedStartDate = ['Lunch', 'Dinner'].includes(event.summary)
     ? startDate
