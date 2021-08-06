@@ -18,7 +18,7 @@ const eventEmbedGenerator = ({
     return date.toLocaleTimeString('en-us', { hour: 'numeric', minute: '2-digit' });
   };
   const calendarReminderEmbed = new MessageEmbed()
-    .setColor('#0099ff')
+    .setColor('#33FFE7')
     .setTitle(summary)
     .setAuthor('CodyBot (but for Discord)', 'https://avatars.slack-edge.com/2019-02-01/540531868533_9e67c4bd47a960061ba8_192.png', 'https://github.com/WuksGG')
     .setDescription(['Lunch', 'Dinner'].includes(summary)
