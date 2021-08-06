@@ -64,14 +64,13 @@ const init = async () => {
 
   const dateNow = new Date();
   const hourNow = dateNow.getHours();
-  if (hourNow > 6) schedulingLogic(); // bypass cron if application reset
+  // Bypass cron if application reset
+  if (hourNow > 6) schedulingLogic();
 
   // Schedule the jobs at 6am daily
   cron.schedule('0 6 * * *', async () => {
     schedulingLogic();
   });
-  // const [err, events] = await calendarData.getFromDatabase();
-  // if (err) return;
   // SAMPLE TEST DATA
   // events.push({
   //   id: 'k44v3h54vsqvp5fjr5tljic63c',
@@ -82,7 +81,6 @@ const init = async () => {
   //   sent: null,
   //   location: null,
   // });
-  // events.forEach((event) => scheduleTask(event));
 };
 
 module.exports = {
