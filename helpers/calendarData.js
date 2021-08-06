@@ -90,6 +90,11 @@ const getFromDatabase = async () => {
         AND start < NOW() + INTERVAL 1 DAY
       ORDER BY start DESC;
     `;
+    /* let query = 'SELECT * FROM events';
+    query += ' WHERE sent IS NULL AND start > NOW()';
+    // now < event < now + 5
+    query += ' AND start < NOW() + interval \'14 hours\'';
+    query += ' ORDER BY start;'; */
     return [null, await db.any(query)];
   } catch (e) {
     return [e];
