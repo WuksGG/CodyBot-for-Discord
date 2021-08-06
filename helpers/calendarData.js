@@ -82,11 +82,14 @@ const populateDatabase = async () => {
 
 const getFromDatabase = async () => {
   try {
-    let query = 'SELECT * FROM events';
-    query += ' WHERE sent IS NULL AND start > NOW()';
-    // now < event < now + 5
-    query += ' AND start < NOW() + interval \'1 day\'';
-    query += ' ORDER BY start;';
+    const query =`
+      SELECT *
+      FROM events
+      WHERE sent IS NULL
+        AND start > NOW()
+        AND start < NOW() + INTERVAL 1 DAY
+      ORDER BY start DESC;
+    `;
     return [null, await db.any(query)];
   } catch (e) {
     return [e];
