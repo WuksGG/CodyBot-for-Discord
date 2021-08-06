@@ -3,8 +3,8 @@ const { MessageEmbed } = require('discord.js');
 const cron = require('node-cron');
 
 const { calendar: { channelId } } = require('#config');
-const { client } = require('./discord');
-const { calendarData } = require('#helpers');
+const { discord: { client } } = require('#helpers');
+const calendarData = require('#models/calendarData');
 
 const eventEmbedGenerator = ({
   summary,
@@ -20,7 +20,7 @@ const eventEmbedGenerator = ({
   const calendarReminderEmbed = new MessageEmbed()
     .setColor('#33FFE7')
     .setTitle(summary)
-    .setAuthor('CodyBot (but for Discord)', 'https://avatars.slack-edge.com/2019-02-01/540531868533_9e67c4bd47a960061ba8_192.png', 'https://github.com/WuksGG')
+    .setAuthor('CodyBot (but for Discord)', 'https://avatars.slack-edge.com/2019-02-01/540531868533_9e67c4bd47a960061ba8_192.png', 'https://github.com/WuksGG/CodyBot-for-Discord')
     .setDescription(['Lunch', 'Dinner'].includes(summary)
       ? `@here It's Time For ${summary}`
       : `@here 3 Minutes until ${summary}.`)
@@ -31,7 +31,7 @@ const eventEmbedGenerator = ({
       { name: 'End Time:', value: dateToReadable(end), inline: false },
     )
     .setTimestamp()
-    .setFooter('Made with 💖 in California');
+    .setFooter('Made with 💖 by SFO136');
   return calendarReminderEmbed;
 };
 

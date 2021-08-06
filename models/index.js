@@ -1,9 +1,7 @@
-const database = require('./database');
-const discord = require('./discord');
 const calendar = require('./calendar');
+const calendarData = require('./calendarData');
 
 module.exports = {
-  database,
-  discord,
   calendar,
+  calendarData,
 };

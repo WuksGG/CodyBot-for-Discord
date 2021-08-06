@@ -2,7 +2,7 @@
 const axios = require('axios');
 
 const { calendar } = require('#config');
-const { pgp, db } = require('../models/database');
+const { database: { pgp, db } } = require('#helpers');
 
 const storeToDatabase = async ({ items: events }) => {
   const eventsColumnSet = new pgp.helpers.ColumnSet(

@@ -3,19 +3,13 @@
 const fs = require('fs');
 require('dotenv').config({ path: './configuration/.env' });
 
-const { client } = require('#models/discord');
-const calendar = require('#models/calendar');
+const { discord: { client } } = require('#helpers');
+const { calendar } = require('#models');
 
 calendar.init();
 
-(async () => {
-  // if db is empty
-  // calendarData.populateDatabase();
-
-  // if testing db stuff
-  // const events = await calendarData.getFromDatabase();
-  // console.log(events);
-})();
+// const { calendarData } = require('#models');
+// calendarData.populateDatabase();
 
 const eventFiles = fs.readdirSync('./events').filter((file) => file.endsWith('.js'));
 eventFiles.forEach((file) => {

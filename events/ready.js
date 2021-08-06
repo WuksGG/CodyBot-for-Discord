@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
-const { client } = require('#models/discord');
+const { discord: { client } } = require('#helpers');
 
 // Listeners
 module.exports = {
