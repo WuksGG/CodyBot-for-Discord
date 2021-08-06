@@ -1,24 +1,19 @@
+/* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 const fs = require('fs');
 require('dotenv').config({ path: './configuration/.env' });
 
-const { discord: { client } } = require('#models');
-const { calendarData } = require('#helpers');
+const { client } = require('#models/discord');
+const calendar = require('#models/calendar');
 
-const cron = require('node-cron');
-cron.schedule('*/1 * * * *', async () => {
-  const events = await calendarData.getFromDatabase();
-  // then post
-  // then update
-  console.log(events);
-});
+calendar.init();
 
 (async () => {
   // if db is empty
-  // getCalendarData.populateDatabase();
+  // calendarData.populateDatabase();
 
   // if testing db stuff
-  // const events = await getCalendarData.getFromDatabase();
+  // const events = await calendarData.getFromDatabase();
   // console.log(events);
 })();
 

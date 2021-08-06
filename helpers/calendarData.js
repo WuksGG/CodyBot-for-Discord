@@ -1,7 +1,8 @@
+/* eslint-disable import/no-unresolved */
 const axios = require('axios');
-// eslint-disable-next-line import/no-unresolved
+
 const { calendar } = require('#config');
-const { database: { pgp, db } } = require('#models');
+const { pgp, db } = require('../models/database');
 
 const storeToDatabase = async ({ items: events }) => {
   const eventsColumnSet = new pgp.helpers.ColumnSet(
@@ -11,6 +12,7 @@ const storeToDatabase = async ({ items: events }) => {
       'description',
       'start',
       'end',
+      'location',
     ],
     { table: 'events' },
   );
@@ -24,6 +26,7 @@ const storeToDatabase = async ({ items: events }) => {
         description,
         start,
         end,
+        location,
       } = calendarEvent;
       return {
         id,
@@ -31,6 +34,7 @@ const storeToDatabase = async ({ items: events }) => {
         description,
         start: start.dateTime,
         end: end.dateTime,
+        location,
       };
     });
 
@@ -81,15 +85,27 @@ const getFromDatabase = async () => {
     let query = 'SELECT * FROM events';
     query += ' WHERE sent IS NULL AND start > NOW()';
     // now < event < now + 5
-    query += ' AND start < NOW() + interval \'80 minutes\'';
-    query += ' ORDER BY start LIMIT 1;';
+    query += ' AND start < NOW() + interval \'1 day\'';
+    query += ' ORDER BY start;';
     return [null, await db.any(query)];
   } catch (e) {
     return [e];
   }
 };
 
+// const markAsSent = async (id) => {
+//   // After an event is posted to channel,
+//   // mark the event as sent so it's not resent.
+//   try {
+//     console.log(id);
+//     return [null, true];
+//   } catch (e) {
+//     return [e];
+//   }
+// };
+
 module.exports = {
   populateDatabase,
   getFromDatabase,
+  // markAsSent,
 };

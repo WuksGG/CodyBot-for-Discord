@@ -56,6 +56,9 @@ const client = new Client({
 
 client.login(process.env.DISCORD_TOKEN);
 
+const getGuild = client.guilds.fetch(guildId);
+
 module.exports = {
   client,
+  getGuild,
 };
