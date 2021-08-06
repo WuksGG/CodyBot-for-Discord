@@ -87,7 +87,7 @@ const getFromDatabase = async () => {
       FROM events
       WHERE sent IS NULL
         AND start > NOW()
-        AND start < NOW() + INTERVAL 1 DAY
+        AND start < NOW() + INTERVAL '14 hours'
       ORDER BY start DESC;
     `;
     /* let query = 'SELECT * FROM events';
