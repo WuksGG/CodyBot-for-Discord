@@ -17,7 +17,6 @@ const eventEmbedGenerator = ({
     const date = new Date(timestamp);
     return date.toLocaleTimeString('en-us', { hour: 'numeric', minute: '2-digit' });
   };
-  console.log(summary);
   const calendarReminderEmbed = new MessageEmbed()
     .setColor('#0099ff')
     .setTitle(summary)
