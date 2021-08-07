@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 const { MessageEmbed } = require('discord.js');
 const cron = require('node-cron');
 

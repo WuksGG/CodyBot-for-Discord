@@ -1,6 +1,4 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-const fs = require('fs');
+const fs = require('fs'); // lint test
 require('dotenv').config({ path: './configuration/.env' });
 
 const { discord: { client } } = require('#helpers');

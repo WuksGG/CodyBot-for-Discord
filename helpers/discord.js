@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { Client, Intents } = require('discord.js');
@@ -13,7 +12,7 @@ const commands = [
   },
   {
     name: 'zoom',
-    description: 'Lists all of the Zoom rooms',
+    description: 'Lists zoom channels most relevant to the server',
   },
 ];
 

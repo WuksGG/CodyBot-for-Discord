@@ -7,4 +7,14 @@ module.exports = {
     clientId: null,
     guildId: null,
   },
+  zoom: {
+    cohort: 'SFO',
+    rooms: [],
+    // rooms: [
+    //   {
+    //     name: '📖   Room Name',
+    //     value: '⮞ https://roomlink.somelink\n\u200b',
+    //   },
+    // ],
+  },
 };

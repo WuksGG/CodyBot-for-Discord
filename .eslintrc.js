@@ -15,5 +15,13 @@ module.exports = {
     ecmaVersion: 2018,
   },
   rules: {
+    'import/no-unresolved': [2, {
+      commonjs: true,
+      amd: true,
+      ignore: ['#'],
+    }],
+  },
+  settings: {
+
   },
 };

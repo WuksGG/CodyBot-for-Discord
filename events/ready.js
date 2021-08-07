@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 const { discord: { client } } = require('#helpers');
 
 // Listeners
