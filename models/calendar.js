@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 const { MessageEmbed } = require('discord.js');
 const cron = require('node-cron');
@@ -8,7 +9,6 @@ const calendarData = require('#models/calendarData');
 
 const eventEmbedGenerator = ({
   summary,
-  // description,
   start,
   end,
   location,
@@ -31,12 +31,12 @@ const eventEmbedGenerator = ({
       { name: 'End Time:', value: dateToReadable(end), inline: false },
     )
     .setTimestamp()
-    .setFooter('Made with 💖 by SFO136');
+    .setFooter('Made with ❤️ by students from SFO136');
   return calendarReminderEmbed;
 };
 
 const scheduleTask = (event) => {
-  if (event.summary === 'Pre-Party') return;
+  if (event.summary === 'Pre-Party' || !event.summary.indexOf('Workout')) return;
   const startDate = new Date(event.start);
   const adjustedStartDate = ['Lunch', 'Dinner'].includes(event.summary)
     ? startDate
@@ -60,27 +60,15 @@ const init = async () => {
     const [err, events] = await calendarData.getFromDatabase();
     if (err) return;
     events.forEach((event) => scheduleTask(event));
-  }
-
+  };
   const dateNow = new Date();
   const hourNow = dateNow.getHours();
   // Bypass cron if application reset
-  if (hourNow > 6) schedulingLogic();
-
+  if (hourNow > 6 && hourNow < 21) schedulingLogic();
   // Schedule the jobs at 6am daily
   cron.schedule('0 6 * * *', async () => {
     schedulingLogic();
   });
-  // SAMPLE TEST DATA
-  // events.push({
-  //   id: 'k44v3h54vsqvp5fjr5tljic63c',
-  //   summary: 'Lunch',
-  //   description: null,
-  //   start: '2021-08-07T06:23:00.000Z',
-  //   end: '2021-08-07T03:00:00.000Z',
-  //   sent: null,
-  //   location: null,
-  // });
 };
 
 module.exports = {
