@@ -8,8 +8,8 @@ const calendarData = require('#models/calendarData');
 
 const eventEmbedGenerator = ({
   summary,
-  start,
-  end,
+  timestart,
+  timeend,
   location,
 }) => {
   const dateToReadable = (timestamp) => {
@@ -24,10 +24,10 @@ const eventEmbedGenerator = ({
       ? `@here It's Time For ${summary}`
       : `@here 3 Minutes until ${summary}.`)
     .addFields(
-      { name: 'Start Time:', value: dateToReadable(start), inline: true },
+      { name: 'Start Time:', value: dateToReadable(timestart), inline: true },
       { name: '\u200b', value: '\u200b', inline: true },
       { name: 'Location:', value: location || 'N/A', inline: true },
-      { name: 'End Time:', value: dateToReadable(end), inline: false },
+      { name: 'End Time:', value: dateToReadable(timeend), inline: false },
     )
     .setTimestamp()
     .setFooter('Made with ❤️ by students from SFO136');
@@ -36,7 +36,7 @@ const eventEmbedGenerator = ({
 
 const scheduleTask = (event) => {
   if (event.summary === 'Pre-Party' || !event.summary.indexOf('Workout')) return;
-  const startDate = new Date(event.start);
+  const startDate = new Date(event.timestart);
   const adjustedStartDate = ['Lunch', 'Dinner'].includes(event.summary)
     ? startDate
     : new Date(startDate - (1000 * 60 * 3));
@@ -60,6 +60,7 @@ const init = async () => {
     if (err) return;
     events.forEach((event) => scheduleTask(event));
   };
+  schedulingLogic();
   const dateNow = new Date();
   const hourNow = dateNow.getHours();
   // Bypass cron if application reset

@@ -4,6 +4,7 @@ require('dotenv').config({ path: './configuration/.env' });
 
 const { calendar } = require('#config');
 const { pgp, db } = require('#helpers/database');
+const OAuth2 = require('./oauth2');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -16,8 +17,8 @@ const storeToDatabase = async ({ items: events }) => {
       'id',
       'summary',
       'description',
-      'start',
-      'end',
+      'timestart',
+      'timeend',
       'location',
     ],
     { table: 'events' },
@@ -37,8 +38,8 @@ const storeToDatabase = async ({ items: events }) => {
         id,
         summary,
         description,
-        start: start.dateTime,
-        end: end.dateTime,
+        timestart: start.dateTime,
+        timeend: end.dateTime,
         location,
       };
     });
@@ -53,7 +54,7 @@ const storeToDatabase = async ({ items: events }) => {
   }
 };
 
-const getGoogleCalendarData = async () => {
+const getGoogleCalendarData = async (accessToken) => {
   const now = new Date();
   try {
     const { data } = await axios({
@@ -63,7 +64,7 @@ const getGoogleCalendarData = async () => {
         timeMin: now.toISOString(),
       },
       headers: {
-        Authorization: `Bearer ${process.env.GOOGLE_CALENDAR_TOKEN}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     return [null, data];
@@ -73,18 +74,31 @@ const getGoogleCalendarData = async () => {
   }
 };
 
-const createTableIfNotExists = () => {
-  const query = '';
+const generateCleanTable = async () => {
+  try {
+    await db.query('DROP TABLE IF EXISTS events;');
+    await db.query(`CREATE TABLE events (
+      id VARCHAR(40) NOT NULL PRIMARY KEY,
+      summary VARCHAR NOT NULL,
+      description VARCHAR,
+      location VARCHAR,
+      timestart TIMESTAMPTZ NOT NULL,
+      timeend TIMESTAMPTZ NOT NULL
+    );`);
+    return [null];
+  } catch (e) {
+    return [e];
+  }
 };
 
 const populateDatabase = async () => {
+  const [oAuthErr, accessToken] = await OAuth2();
+  if (oAuthErr) return 0;
   // Create table if does not exist
-
-  // Clear table if exists
-
+  await generateCleanTable();
   // Populate table
-  const [err, data] = await getGoogleCalendarData();
-  if (err) return err;
+  const [getGcErr, data] = await getGoogleCalendarData(accessToken);
+  if (getGcErr) return 0;
   return storeToDatabase(data);
 };
 

@@ -5,15 +5,13 @@ const getFromDatabase = async () => {
     const query = `
       SELECT *
       FROM events
-      WHERE sent IS NULL
-        AND start > NOW()
-        AND start < NOW() + INTERVAL '14 hours'
-      ORDER BY start DESC;
+      WHERE timestart > NOW()
+        AND timestart < NOW() + INTERVAL '15 hours'
+      ORDER BY timestart DESC;
     `;
     return [null, await db.any(query)];
   } catch (e) {
-    process.stdout.write(e.stack);
-    process.stdout.write('\n');
+    process.stdout.write(`${e.stack}\n`);
     return [e];
   }
 };
