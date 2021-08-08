@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const cron = require('node-cron');
 
+// const test = require('test/test');
 const { calendar: { channelId } } = require('#config');
 const { discord: { client } } = require('#helpers');
 const calendarData = require('#models/calendarData');

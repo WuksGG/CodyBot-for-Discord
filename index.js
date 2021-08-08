@@ -1,13 +1,10 @@
-const fs = require('fs'); // lint test
+const fs = require('fs');
 require('dotenv').config({ path: './configuration/.env' });
 
 const { discord: { client } } = require('#helpers');
 const { calendar } = require('#models');
 
 calendar.init();
-
-// const { calendarData } = require('#models');
-// calendarData.populateDatabase();
 
 const eventFiles = fs.readdirSync('./events').filter((file) => file.endsWith('.js'));
 eventFiles.forEach((file) => {

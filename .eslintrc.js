@@ -21,7 +21,5 @@ module.exports = {
       ignore: ['#'],
     }],
   },
-  settings: {
-
-  },
+  // rule for calendar.js calendarData line 7
 };

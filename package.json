@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "calendar-init": "node google-calendar-integration/index.js"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,7 @@
   "imports": {
     "#config": "./configuration/config.js",
     "#helpers": "./helpers/index.js",
+    "#helpers/*": "./helpers/*.js",
     "#models": "./models/index.js",
     "#models/*": "./models/*.js"
   }
