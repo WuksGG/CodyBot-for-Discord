@@ -18,11 +18,12 @@ const url = require('url');
 const opn = require('open');
 const destroyer = require('server-destroy');
 const { google } = require('googleapis');
+const oAuthKey = require('#config/oauth2.json');
 
 const keyPath = path.join(__dirname, '..', 'configuration', 'oauth2.json');
 let keys = { redirect_uris: [''] };
 if (fs.existsSync(keyPath)) {
-  keys = require(keyPath).web;
+  keys = oAuthKey.web;
 }
 
 const oauth2Client = new google.auth.OAuth2(

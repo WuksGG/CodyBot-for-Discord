@@ -15,11 +15,17 @@ module.exports = {
     ecmaVersion: 2018,
   },
   rules: {
-    'import/no-unresolved': [2, {
-      commonjs: true,
-      amd: true,
-      ignore: ['#'],
-    }],
-    'import/extensions': 0,
+  },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['#helpers', './helpers'],
+          ['#models', './models'],
+          ['^#config$', './configuration/config.js'],
+          ['#config', './configuration'],
+        ],
+      },
+    },
   },
 };
