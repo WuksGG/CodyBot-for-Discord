@@ -47,8 +47,7 @@ const scheduleTask = (event) => {
       const channel = await client.channels.fetch(channelId);
       channel.send({ embeds: [eventEmbedGenerator(event)] });
     } catch (e) {
-      process.stdout.write(e.stack);
-      process.stdout.write('\n');
+      process.stdout.write(`${e.stack}\n`);
     }
     task.destroy();
   });
@@ -60,12 +59,11 @@ const init = async () => {
     if (err) return;
     events.forEach((event) => scheduleTask(event));
   };
-  schedulingLogic();
   const dateNow = new Date();
   const hourNow = dateNow.getHours();
   // Bypass cron if application reset
   if (hourNow > 6 && hourNow < 21) schedulingLogic();
-  // Schedule the jobs at 6am daily
+  // Schedule the jobs at 6:00am daily
   cron.schedule('0 6 * * *', async () => {
     schedulingLogic();
   });

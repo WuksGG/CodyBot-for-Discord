@@ -26,8 +26,7 @@ module.exports = {
       try {
         await interaction.reply('Pong!');
       } catch (e) {
-        process.stdout.write(e.stack);
-        process.stdout.write('\n');
+        process.stdout.write(`${e.stack}\n`);
       }
     } else if (interaction.commandName === 'zoom') {
       try {
@@ -35,8 +34,7 @@ module.exports = {
           ? { embeds: [zoomRichEmbed] }
           : 'No rooms added.');
       } catch (e) {
-        process.stdout.write(e.stack);
-        process.stdout.write('\n');
+        process.stdout.write(`${e.stack}\n`);
       }
     }
   },
