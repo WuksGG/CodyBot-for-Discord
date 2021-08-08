@@ -20,6 +20,6 @@ module.exports = {
       amd: true,
       ignore: ['#'],
     }],
+    'import/extensions': 0,
   },
-  // rule for calendar.js calendarData line 7
 };
