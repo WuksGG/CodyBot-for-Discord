@@ -1,5 +1,3 @@
-const { discord: { client } } = require('#helpers');
-
 const {
   messageCreate: {
     init,
@@ -9,12 +7,15 @@ const {
 module.exports = {
   name: 'messageCreate',
   async execute(message) {
+    // Zero-Permission Routes
     if (message.content === 'ping') {
       message.channel.send('pong');
-    } else if (message.content === 'init') {
-      // init(message);
-      console.log(client);
-      console.log(await message.author.fetchFlags());
+    }
+    // Administrator Routes
+    if (await message.member.permissions.has('ADMINISTRATOR')) {
+      if (message.content === 'init') {
+        init(message);
+      }
     }
   },
 };
